@@ -33,7 +33,6 @@ public class UserServiceImp implements UserService {
         userRepository.deleteById(id);
     }
 
-    @Transactional(readOnly = true)
     @Override
     public List<User> getUsers() {
         return userRepository.findAll();
@@ -51,7 +50,6 @@ public class UserServiceImp implements UserService {
         }
     }
 
-    @Transactional(readOnly = true)
     @Override
     public User getUserById(Long id) {
         Optional<User> userById = userRepository.findById(id);
@@ -62,7 +60,6 @@ public class UserServiceImp implements UserService {
         }
     }
 
-    @Transactional(readOnly = true)
     @Override
     public User getUserByUsername(String username) {
         return userRepository.getUserByUsername(username);
