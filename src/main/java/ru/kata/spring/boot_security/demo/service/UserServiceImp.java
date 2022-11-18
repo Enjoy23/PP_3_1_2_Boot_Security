@@ -8,8 +8,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.repository.UserRepository;
-
-
 import java.util.List;
 import java.util.Optional;
 
@@ -34,6 +32,7 @@ public class UserServiceImp implements UserService {
     public void deleteUserById(Long id) {
         userRepository.deleteById(id);
     }
+
     @Transactional(readOnly = true)
     @Override
     public List<User> getUsers() {
@@ -51,6 +50,7 @@ public class UserServiceImp implements UserService {
         userRepository.save(user);
         }
     }
+
     @Transactional(readOnly = true)
     @Override
     public User getUserById(Long id) {
@@ -61,12 +61,12 @@ public class UserServiceImp implements UserService {
             throw new UsernameNotFoundException(String.format("User with %s not found", id));
         }
     }
+
     @Transactional(readOnly = true)
     @Override
     public User getUserByUsername(String username) {
         return userRepository.getUserByUsername(username);
     }
-
 
     @Transactional(readOnly = true)
     @Override
@@ -78,6 +78,4 @@ public class UserServiceImp implements UserService {
         return new org.springframework.security.core.userdetails.User(user.getUsername(),
                 user.getPassword(), user.getAuthorities());
     }
-
-
 }

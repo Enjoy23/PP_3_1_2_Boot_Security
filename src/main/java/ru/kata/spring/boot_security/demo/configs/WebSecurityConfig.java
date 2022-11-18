@@ -15,8 +15,11 @@ import ru.kata.spring.boot_security.demo.service.UserServiceImp;
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
     private final SuccessUserHandler successUserHandler;
+
     private final UserServiceImp userService;
+
     @Autowired
     public WebSecurityConfig(SuccessUserHandler successUserHandler, UserServiceImp userService) {
         this.userService = userService;
@@ -39,7 +42,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll();
     }
 
-    // аутентификация inMemory
     @Bean
     public PasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder(10);

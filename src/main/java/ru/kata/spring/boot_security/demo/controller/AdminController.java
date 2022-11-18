@@ -9,11 +9,12 @@ import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.service.RoleService;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
-
 @Controller
 @RequestMapping(value = "/admin")
 public class AdminController {
+
     private final UserService userService;
+
     private final RoleService roleService;
 
     @Autowired
@@ -27,12 +28,14 @@ public class AdminController {
         model.addAttribute("users", userService.getUsers());
         return "usersIndex";
     }
+
     @GetMapping(value = "/new")
     public String createNewUser(Model model) {
         model.addAttribute("user",new User());
         model.addAttribute("roles", roleService.getRoles());
         return "new";
     }
+
     @PostMapping
     public String addNewUser(@ModelAttribute("user") User user){
        userService.saveUser(user);
@@ -59,5 +62,4 @@ public class AdminController {
         userService.updateUser(user);
         return "redirect:/admin";
     }
-
 }

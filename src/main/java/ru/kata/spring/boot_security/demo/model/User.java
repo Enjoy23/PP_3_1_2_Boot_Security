@@ -10,20 +10,23 @@ import java.util.Objects;
 @Entity
 @Table(name= "users")
 public class User implements UserDetails{
+
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
     @Column
     private String surname;
+
     @Column
     private int age;
+
     @Column
     private String name;
 
     @Column
     private String username;
-
 
     @Column
     private String password;
@@ -33,7 +36,6 @@ public class User implements UserDetails{
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
     private List<Role> roles;
-
 
     public User(long id, String surname, int age, String name, String username, String password, List<Role> roles) {
         this.id = id;
@@ -143,13 +145,30 @@ public class User implements UserDetails{
         return true;
     }
 
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return getRoles();
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return id == user.id && age == user.age && Objects.equals(surname, user.surname) && Objects.equals(name, user.name) && Objects.equals(username, user.username) && Objects.equals(password, user.password) && Objects.equals(roles, user.roles);
+    }
 
+    @Override
+    public int hashCode() {
+        int result = (int) (id ^ (id >>> 32));
+        result = 31 * result + username.hashCode();
+        result = 31 * result + name.hashCode();
+        result = 31 * result + surname.hashCode();
+        result = 31 * result +  age;
+        result = 31 * result + password.hashCode();
+        result = 31 * result + roles.hashCode();
+        return result;
+    }
 
     @Override
     public String toString() {
@@ -159,7 +178,6 @@ public class User implements UserDetails{
                 ", age=" + age +
                 ", name='" + name + '\'' +
                 '}';
+
     }
-
-
 }

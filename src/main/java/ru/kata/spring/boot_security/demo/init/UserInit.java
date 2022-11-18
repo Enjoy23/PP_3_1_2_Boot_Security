@@ -11,6 +11,7 @@ import java.util.List;
 
 @Component
 public class UserInit {
+
     private final UserService userService;
 
     @Autowired
@@ -20,6 +21,7 @@ public class UserInit {
 
     @PostConstruct
     public void init(){
+
         Role adminRole = new Role("ROLE_ADMIN");
         Role userRole = new Role("ROLE_USER");
         List<Role> adminRoleList = new ArrayList<>();
@@ -32,10 +34,5 @@ public class UserInit {
 
         userService.saveUser(admin);
         userService.saveUser(user);
-
-
-
-
-
     }
 }

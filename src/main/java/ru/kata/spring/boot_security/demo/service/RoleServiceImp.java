@@ -10,6 +10,7 @@ import java.util.List;
 @Service
 @Transactional(readOnly = true)
 public class RoleServiceImp implements RoleService{
+
     private RoleRepository roleRepository;
 
     @Autowired
@@ -21,6 +22,5 @@ public class RoleServiceImp implements RoleService{
     public List<Role> getRoles() {
         return roleRepository.findAll();
     }
-
 
 }
